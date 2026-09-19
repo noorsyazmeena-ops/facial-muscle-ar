@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Facial Muscle Anatomy AR</title>
+
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #info {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      color: white;
+      background: rgba(0,0,0,0.65);
+      padding: 12px 20px;
+      border-radius: 20px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="info">
+    Scan the facial image
+  </div>
+
+  <a-scene
+    mindar-image="
+      imageTargetSrc: assets/marker.mind;
+      autoStart: true;
+      uiScanning: yes;
+      uiLoading: yes;
+    "
+    color-space="sRGB"
+    renderer="colorManagement: true; physicallyCorrectLights: true"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
+    <a-assets>
+      <a-asset-item
+        id="facialMuscles"
+        src="assets/facial_muscles.glb">
+      </a-asset-item>
+    </a-assets>
+
+    <a-camera
+      position="0 0 0"
+      look-controls="enabled: false">
+    </a-camera>
+
+    <a-entity mindar-image-target="targetIndex: 0">
+
+      <a-gltf-model
+        src="#facialMuscles"
+        position="0 0 0"
+        rotation="0 0 0"
+        scale="0.5 0.5 0.5">
+      </a-gltf-model>
+
+    </a-entity>
+
+  </a-scene>
+
+</body>
+</html>
